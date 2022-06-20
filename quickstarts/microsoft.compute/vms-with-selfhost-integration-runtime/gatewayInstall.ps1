@@ -93,6 +93,11 @@ function Download-Gateway([string] $url, [string] $gwPath)
 {
     try
     {
+    	ServicePointManager.Expect100Continue = true;
+	ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls
+       		| SecurityProtocolType.Tls11
+       		| SecurityProtocolType.Tls12
+       		| SecurityProtocolType.Ssl3;
         $ErrorActionPreference = "Stop";
         $client = New-Object System.Net.WebClient
         $client.DownloadFile($url, $gwPath)
